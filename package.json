@@ -1,0 +1,29 @@
+{
+  "name": "tdd-mooc-conways-game-of-life",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "Conway's Game of Life using TDD",
+  "license": "TODO",
+  "author": {
+    "name": "YakovYakov",
+    "url": "https://github.com/Yakovyakov"
+  },
+  "private": true,
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "prettier": "^3.1.1",
+    "vite": "^6.3.3",
+    "vitest": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "autotest": "vitest watch",
+    "format": "prettier --write ."
+  }
+}
