@@ -12,6 +12,9 @@ export class RLEParser {
 
 
     const headerLine = lines.find(line => line.startsWith('x'));
+    if (!headerLine) {
+      throw new Error('Invalid header');
+    }
 
     const headerMatch = headerLine.match(/x\s*=\s*(\d+)\s*,\s*y\s*=\s*(\d+)/i);
 
