@@ -33,6 +33,10 @@ export class Grid {
     return this.#cells[row][col];
   }
 
+  setCellStateAt(row, col, newState) {
+    this.cellAt(row, col).setState(newState);
+  }
+  
   #isOutOfBound(row, col) {
     return row < 0 ||
       row >= this.#height ||
