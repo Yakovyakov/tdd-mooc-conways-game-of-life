@@ -12,5 +12,9 @@ describe('RLEParser', () => {
       expect(rleParser.header).to.equal('x = 3, y = 2');
       expect(rleParser.pattern).to.equal('bo$2o!');      
     });
+
+    test('should throw error with empty file', () => {
+      expect(() => new RLEParser('')).to.throw(Error, 'Invalid header');
+    });
   });
 });
