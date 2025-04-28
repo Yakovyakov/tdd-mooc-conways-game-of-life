@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { describe, test } from "vitest";
-
+import { RLEParser } from "../src/RLEParser.mjs";
 
 describe('RLEParser', () => {
   describe('RLE to Grid', () => {
