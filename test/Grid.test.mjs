@@ -33,9 +33,9 @@ describe('Grid class', () => {
   });
 
   test('should throw error for out of bound access', () => {
-    expect(() => grid.cellAt(-1, 0)).to.throw(Error, 'Coordinates out of bounds');
-    expect(() => grid.cellAt(0, -1)).to.throw(Error, 'Coordinates out of bounds');
-    expect(() => grid.cellAt(3, 0)).to.throw(Error, 'Coordinates out of bounds');
-    expect(() => grid.cellAt(0, 6)).to.throw(Error, 'Coordinates out of bounds');
+    expect(() => grid.cellAt(-1, 0)).to.throw(Error, 'Coordinates out of bound');
+    expect(() => grid.cellAt(0, -1)).to.throw(Error, 'Coordinates out of bound');
+    expect(() => grid.cellAt(3, 0)).to.throw(Error, 'Coordinates out of bound');
+    expect(() => grid.cellAt(0, 6)).to.throw(Error, 'Coordinates out of bound');
   });
 });
