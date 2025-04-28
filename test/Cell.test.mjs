@@ -29,4 +29,11 @@ describe('Cell class', () => {
     cell.setState(CELL_STATES.DEAD);
     expect(cell.isAlive()).to.be.false;
   });
+
+  test('setStae should throw error if invalid state', () => {
+    // dead cell
+    const cell = new Cell();
+
+    expect(() => cell.setState('invalid')).to.throw(Error, 'Invalid state');
+  });
 });
