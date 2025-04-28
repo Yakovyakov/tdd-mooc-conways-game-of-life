@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { beforeEach, describe, test } from "vitest";
+import { Grid } from "../src/Grid.mjs";
 
 describe('Grid class', () => {
   const width = 3;
