@@ -18,4 +18,15 @@ describe('Cell class', () => {
   test('should throw error if invalid state', () => {
     expect(() => new Cell('invalid')).to.throw(Error, 'Invalid state');
   });
+
+  test('should be possible to stablish state', () => {
+
+    // dead cell
+    const cell = new Cell();
+
+    cell.setState(CELL_STATES.ALIVE);
+    expect(cell.isAlive()).to.be.true;
+    cell.setState(CELL_STATES.DEAD);
+    expect(cell.isAlive()).to.be.false;
+  });
 });
