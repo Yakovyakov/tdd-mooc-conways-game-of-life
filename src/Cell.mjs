@@ -17,5 +17,9 @@ export default class Cell {
   isAlive() {
     return this.#state === CELL_STATES.ALIVE;
   }
+
+  setState(newState) {
+    this.#state = newState;
+  }
 }
 
