@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { beforeEach, describe, test } from "vitest";
 import { Grid } from "../src/Grid.mjs";
+import { CELL_STATES } from "../src/Cell.mjs";
 
 describe('Grid class', () => {
   const width = 3;
@@ -37,5 +38,17 @@ describe('Grid class', () => {
     expect(() => grid.cellAt(0, -1)).to.throw(Error, 'Coordinates out of bound');
     expect(() => grid.cellAt(3, 0)).to.throw(Error, 'Coordinates out of bound');
     expect(() => grid.cellAt(0, 6)).to.throw(Error, 'Coordinates out of bound');
+  });
+
+  test('shoud change cells state correctly', () => {
+    grid.setCellStateAt(1, 0, CELL_STATES.ALIVE)
+    expect(grid.cellAt(1, 0).isAlive()).to.be.true;
+
+    grid.setCellStateAt(1, 1, CELL_STATES.ALIVE)
+    expect(grid.cellAt(1, 1).isAlive()).to.be.true;
+
+    grid.setCellStateAt(1, 1, CELL_STATES.DEAD)
+    expect(grid.cellAt(1, 1).isAlive()).to.be.false;
+
   });
 });
