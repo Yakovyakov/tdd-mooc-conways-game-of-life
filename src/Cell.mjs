@@ -8,6 +8,9 @@ export default class Cell {
   #state;
 
   constructor(initialState = CELL_STATES.DEAD) {
+    if (!Object.values(CELL_STATES).includes(initialState)) {
+      throw new Error('Invalid state');
+    }
     this.#state = initialState;
   }
 
