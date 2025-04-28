@@ -16,5 +16,10 @@ describe('RLEParser', () => {
     test('should throw error with empty file', () => {
       expect(() => new RLEParser('')).to.throw(Error, 'Invalid header');
     });
+
+    test('should throw error with invalid header', () => {
+      const rleString = 'x = 3, x = 2\nbo$2o!';
+      expect(() => new RLEParser(rleString)).to.throw(Error, 'Invalid header');
+    });
   });
 });
