@@ -1,5 +1,5 @@
 import { describe, test } from "vitest";
-import { CELL_STATES } from "../src/Cell.mjs";
+import Cell, { CELL_STATES } from "../src/Cell.mjs";
 import { expect } from "chai";
 
 describe('Cell class', () => {
