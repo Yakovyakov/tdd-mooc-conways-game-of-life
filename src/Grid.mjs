@@ -27,14 +27,16 @@ export class Grid {
   }
 
   cellAt(row, col) {
-    if (
-      row < 0 || 
-      row >= this.#height ||
-      col < 0 ||
-      col >= this.#width
-    ) {
+    if (this.#isOutOfBound(row, col)) {
       throw new Error('Coordinates out of bound');
     }
     return this.#cells[row][col];
+  }
+
+  #isOutOfBound(row, col) {
+    return row < 0 ||
+      row >= this.#height ||
+      col < 0 ||
+      col >= this.#width;
   }
 }
