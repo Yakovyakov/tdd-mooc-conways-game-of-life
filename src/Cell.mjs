@@ -19,6 +19,9 @@ export default class Cell {
   }
 
   setState(newState) {
+    if (!Object.values(CELL_STATES).includes(newState)) {
+      throw new Error('Invalid state');
+    }
     this.#state = newState;
   }
 }
