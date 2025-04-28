@@ -23,4 +23,12 @@ describe('Grid class', () => {
     expect(grid.width()).to.equal(5);
     expect(grid.height()).to.equal(7);
   });
+
+  test('should initialize with  all cells dead', () => {
+    for (let row = 0; row < grid.height(); row++) {
+      for (let col = 0; col < grid.width();col++) {
+        expect(grid.cellAt(row, col).isAlive()).to.be.false;
+      }
+    }
+  });
 });
