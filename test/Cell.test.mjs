@@ -14,4 +14,8 @@ describe('Cell class', () => {
     expect(defaultCell.isAlive()).to.be.false;
 
   });
+
+  test('should throw error if invalid state', () => {
+    expect(() => new Cell('invalid')).to.throw(Error, 'Invalid state');
+  });
 });
