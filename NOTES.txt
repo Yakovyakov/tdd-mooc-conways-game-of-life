@@ -1,0 +1,2 @@
+- Walking skeleton
+- TDD Core base: CELL_STATES, Cell, Grid, RLEParser, gameOfLife
