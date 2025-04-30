@@ -159,6 +159,53 @@ describe('GameOfLife class', () => {
       testGrid(gameOfLife.grid, expectedLiveCells);
 
     });
+
+    test('should compute multiple generations', () => {
+      const initialGrid = new Grid(4, 4);
+
+      // test pattern, blinker
+      //  b b o b
+      //  o b o b
+      //  b o o b
+      //  b b b b
+
+      const initialLiveCells = [
+        {row: 0, col: 2},
+        {row: 1, col: 0},
+        {row: 1, col: 2},
+        {row: 2, col: 1},
+        {row: 2, col: 2},
+      ];
+
+      setLiveCellsToGrid(initialGrid, initialLiveCells);
+      const gameOfLife = new GameOfLife(initialGrid);
+
+      const liveCellsAfter2Rounds = [
+        {row: 0, col: 2},
+        {row: 1, col: 3},
+        {row: 2, col: 1},
+        {row: 2, col: 2},
+        {row: 2, col: 3},
+      ];
+
+      gameOfLife.simulate(2);
+      testGrid(gameOfLife.grid, liveCellsAfter2Rounds);
+      expect(gameOfLife.generations).to.equal(2);
+
+      const liveCellsAfter4Rounds = [
+        {row: 1, col: 3},
+        {row: 2, col: 1},
+        {row: 2, col: 3},
+        {row: 3, col: 2},
+        {row: 3, col: 3},
+      ];
+
+      // another 2 rounds
+      gameOfLife.simulate(2);
+      testGrid(gameOfLife.grid, liveCellsAfter4Rounds);
+      expect(gameOfLife.generations).to.equal(4);
+
+    });
   });
 
 });
