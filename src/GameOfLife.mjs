@@ -21,6 +21,8 @@ export class GameOfLife {
 
     if (cell.isAlive()) {
       return numberOfLiveNeighbors === 2 || numberOfLiveNeighbors === 3 ? true : false;
+    } else { 
+      return numberOfLiveNeighbors === 3 ? true : false
     }
 
     // for now
