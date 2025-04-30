@@ -79,4 +79,24 @@ export class RLEParser {
     }
     return grid;
   }
+
+  static gridToRLE(grid) {
+    let rle = `x = ${grid.width()}, y = ${grid.height()}\n`;
+
+
+    for (let row = 0; row < grid.height(); row++) {
+      for (let col = 0; col < grid.width(); col++) {
+        const cell = grid.cellAt(row, col);
+        const state = cell.isAlive() ? 'o' : 'b';
+
+        rle += state;
+      }
+
+      if (row < grid.height() - 1) {
+        rle += '$'
+      }
+    }
+    rle += '!';
+    return rle;
+  }
 }
