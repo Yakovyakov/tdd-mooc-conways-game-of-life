@@ -85,6 +85,7 @@ export class RLEParser {
 
     let currentState = null;
     let currentRun = 0;
+    let currentLineRun = 0;
 
 
     for (let row = 0; row < grid.height(); row++) {
@@ -96,6 +97,10 @@ export class RLEParser {
           currentRun++;
         } else {
           if (currentRun > 0) {
+            if (currentLineRun > 0) {
+              rle +=  (currentLineRun > 1 ? currentLineRun : '') + '$';
+              currentLineRun = 0;
+            }
             rle += (currentRun > 1 ? currentRun : '') + currentState;
           }
           currentState = state;
@@ -107,14 +112,21 @@ export class RLEParser {
 
       if (currentRun > 0) {
         if (currentState !== 'b') {
+          if (currentLineRun > 0) {
+            rle += (currentLineRun > 1 ? currentLineRun : '') + '$';
+            
+          }
           rle += (currentRun > 1 ? currentRun : '') + currentState;
+          currentLineRun = 1;
+        } else {
+          if (currentRun === grid.width()){
+            currentLineRun++;
+          } else {
+            currentLineRun = 1;
+          }
         }
         currentRun = 0;
         currentState = null;
-      }
-
-      if (row < grid.height() - 1) {
-        rle += '$'
       }
     }
     rle += '!';
