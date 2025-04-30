@@ -406,7 +406,6 @@ describe('GameOfLife class', () => {
           const existRightSide = randomSides.some(side => side.description === 'rightSide')
           if (existRightSide)
             right = 1;
-          console.log({top, bottom, left, right})
           gameOfLife.expandGrid(top, bottom, left, right);
           const expectedLiveCells = [
             {row: 1 + top, col: 1 + left}
