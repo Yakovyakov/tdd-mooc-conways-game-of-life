@@ -39,4 +39,29 @@ export class GameOfLife {
     
     return willLive
   }
+
+  detectBoundaryExpansionNeeded() {
+    let shouldExpand = false;
+
+    let expandTop = 0, expandBottom =0, expandLeft = 0, expandRight = 0;
+
+    const width = this.grid.width();
+    const height = this.grid.height();
+
+    // Top
+    for (let i = 0; i < width; i++) {
+      if (this.grid.countLiveNeighbors(-1, i) === 3) {
+        expandTop = 1;
+        break;
+      }
+    }
+
+    return {
+      shouldExpand: (expandTop || expandBottom || expandLeft || expandRight) ? true : false,
+      top: expandTop,
+      bottom: expandBottom,
+      left: expandLeft,
+      right: expandRight
+    }
+  }
 }
