@@ -18,14 +18,13 @@ export class GameOfLife {
   willLive(row, col) {
     const cell = this.grid.cellAt(row, col);
     const numberOfLiveNeighbors = this.grid.countLiveNeighbors(row, col);
-
+    let willLive = false;
     if (cell.isAlive()) {
-      return numberOfLiveNeighbors === 2 || numberOfLiveNeighbors === 3 ? true : false;
+      willLive =  numberOfLiveNeighbors === 2 || numberOfLiveNeighbors === 3 ? true : false;
     } else { 
-      return numberOfLiveNeighbors === 3 ? true : false
+      willLive = numberOfLiveNeighbors === 3 ? true : false
     }
-
-    // for now
-    return undefined
+    
+    return willLive
   }
 }
