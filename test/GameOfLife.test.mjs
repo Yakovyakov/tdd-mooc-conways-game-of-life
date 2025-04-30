@@ -119,5 +119,13 @@ describe('GameOfLife class', () => {
       }
     });
 
+    test('dead cell with 3 live neighbors, will live, born', () => {
+      const randomNeighbors = shuffleAndPickCopy(testNeighbors, 3);
+
+      setLiveCellsToGrid(gameOfLife.grid, randomNeighbors);
+      expect(gameOfLife.willLive(testCell.row, testCell.col), '3 live neighbors, live, born').to.be.true;
+
+    });
+
   });
 });
