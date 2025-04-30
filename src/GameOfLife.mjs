@@ -62,6 +62,20 @@ export class GameOfLife {
         break;
       }
     }
+    // Left
+    for (let i = 0; i < width; i++) {
+      if (this.grid.countLiveNeighbors(i, -1) === 3) {
+        expandLeft = 1;
+        break;
+      }
+    }
+    // Right
+    for (let i = 0; i < width; i++) {
+      if (this.grid.countLiveNeighbors(i, width) === 3) {
+        expandRight = 1;
+        break;
+      }
+    }
 
     return {
       shouldExpand: (expandTop || expandBottom || expandLeft || expandRight) ? true : false,
