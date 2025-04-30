@@ -47,6 +47,13 @@ describe('GameOfLife class', () => {
       gameOfLife.nextGeneration();
       testGrid(gameOfLife.grid, blockCells);
       expect(gameOfLife.generations).to.equal(1);
-    })
+    });
+
+    test('should compute multiple generations', () => {
+      gameOfLife.simulate(3);
+      testGrid(gameOfLife.grid, blockCells);
+      expect(gameOfLife.generations).to.equal(3);
+    });
+
   });
 });
