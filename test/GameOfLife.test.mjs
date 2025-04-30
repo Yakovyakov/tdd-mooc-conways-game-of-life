@@ -106,5 +106,18 @@ describe('GameOfLife class', () => {
         expect(gameOfLife.willLive(testCell.row, testCell.col), `${n} live neighbors, will live`).to.be.true;
       }
     });
+
+    test('live cell with + 3 live neighbors, will dies', () => {
+      
+      for (const n of [4, 5, 6, 7, 8]) {
+        setAllCellsDead(gameOfLife.grid);
+        gameOfLife.grid.setCellStateAt(testCell.row, testCell.col, CELL_STATES.ALIVE);
+        const randomNeighbors = shuffleAndPickCopy(testNeighbors, n);
+
+        setLiveCellsToGrid(gameOfLife.grid, randomNeighbors);
+        expect(gameOfLife.willLive(testCell.row, testCell.col), `${n} live neighbors, will dies`).to.be.false;
+      }
+    });
+
   });
 });
