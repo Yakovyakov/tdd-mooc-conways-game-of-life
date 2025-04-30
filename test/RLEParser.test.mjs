@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { describe, test } from "vitest";
 import { RLEParser } from "../src/RLEParser.mjs";
+import { testGrid } from "./util.mjs";
 
 describe('RLEParser', () => {
   describe('RLE to Grid', () => {
@@ -84,16 +85,34 @@ describe('RLEParser', () => {
         {row: 0, col: 1}
       ];
 
-      for (let row = 0; row < grid.height(); row++) {
-        for (let col = 0; col < grid.width(); col++) {
-          const cellExistInArray = initialLiveCells.some(cell => cell.row === row && cell.col === col);
-          if (cellExistInArray) {
-            expect(grid.cellAt(row, col).isAlive()).to.be.true;
-          } else {
-            expect(grid.cellAt(row, col).isAlive()).to.be.false;
-          }
-        }
-      }
+      testGrid(grid, initialLiveCells);
     });
+
+    test('should parse RLE pattern, repeat tags', () => {
+      const rleString = 'x = 5, y = 5\n2b3o4$2o!';
+      // test pattern
+      //  bbooo
+      //  bbbbb
+      //  bbbbb
+      //  bbbbb
+      //  oobbb
+
+      const rleParser = new RLEParser(rleString);
+
+      const grid = rleParser.parseToGrid();
+
+      const initialLiveCells = [
+        {row: 0, col: 2},
+        {row: 0, col: 3},
+        {row: 0, col: 4},
+        {row: 4, col: 0},
+        {row: 4, col: 1},
+      ];
+
+      testGrid(grid, initialLiveCells);
+    });
+
   });
 });
+
+
