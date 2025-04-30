@@ -128,4 +128,37 @@ describe('GameOfLife class', () => {
     });
 
   });
+
+
+  describe('general patterns', () => {
+    test('should compute next generation', () => {
+      const initialGrid = new Grid(3, 3);
+
+      // test pattern, blinker
+      //  b b b
+      //  o o o
+      //  b b b
+
+      const initialLiveCells = [
+        {row: 1, col: 0},
+        {row: 1, col: 1},
+        {row: 1, col: 2},
+      ];
+
+      setLiveCellsToGrid(initialGrid, initialLiveCells);
+
+      const gameOfLife = new GameOfLife(initialGrid);
+
+      const expectedLiveCells = [
+        {row: 0, col: 1},
+        {row: 1, col: 1},
+        {row: 2, col: 1},
+      ];
+
+      gameOfLife.nextGeneration();
+      testGrid(gameOfLife.grid, expectedLiveCells);
+
+    });
+  });
+
 });
