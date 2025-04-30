@@ -25,5 +25,7 @@ Code reformat
 # TDD: Conway's game of life project
 
 Usage
+
     node src/index.mjs <inputRleFile> <generations>
+
     
