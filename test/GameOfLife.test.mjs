@@ -1,6 +1,6 @@
 import { beforeEach, describe, test } from "vitest";
 import { Grid } from "../src/Grid.mjs";
-import { setLiveCellsToGrid, shuffleAndPickCopy, testGrid } from "./util.mjs";
+import { setAllCellsDead, setLiveCellsToGrid, shuffleAndPickCopy, testGrid } from "./util.mjs";
 import { expect } from "chai";
 import { GameOfLife } from "../src/GameOfLife.mjs";
 import { CELL_STATES } from "../src/Cell.mjs";
@@ -95,5 +95,16 @@ describe('GameOfLife class', () => {
 
     });
 
+    test('live cell with 2 - 3 live neighbors, will live', () => {
+      
+      for (const n of [2, 3]) {
+        setAllCellsDead(gameOfLife.grid);
+        gameOfLife.grid.setCellStateAt(testCell.row, testCell.col, CELL_STATES.ALIVE);
+        const randomNeighbors = shuffleAndPickCopy(testNeighbors, n);
+
+        setLiveCellsToGrid(gameOfLife.grid, randomNeighbors);
+        expect(gameOfLife.willLive(testCell.row, testCell.col), `${n} live neighbors, will live`).to.be.true;
+      }
+    });
   });
 });
