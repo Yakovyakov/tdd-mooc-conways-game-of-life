@@ -215,6 +215,25 @@ describe('RLEParser', () => {
 
       expect(rle).to.equal('x = 3, y = 3\nbo!');
     });
+
+    test('all cells dead should <header>\\n!', () => {
+      const grid = new Grid(3,3);
+
+      // test pattern
+      //  b b b 
+      //  b b b
+      //  b b b
+
+      const initialLiveCells = [
+        
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 3\n!');
+    });
   });
 });
 
