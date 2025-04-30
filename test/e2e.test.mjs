@@ -23,4 +23,14 @@ describe('e2e', () => {
     expect(result).to.equal('x = 2, y = 2\n2o$2o!');
 
   });
+  /*
+  describe('simulate Blinker pattern', () => {
+    test('odd number of rounds', () => {
+      const result  = runGameOfLife('./testdata/blinker.rle', 3);
+      expect(result).to.equal('x = 3, y = 3\nbo$bo$bo!');
+  
+    });
+
+  });
+  */
 });
