@@ -8,6 +8,7 @@ export class RLEParser {
   parserHeader() {
     const lines = this.rleString
       .split('\n')
+      .filter(line => !line.trim().startsWith('#'))
       .map(line => line.trim());
 
 
