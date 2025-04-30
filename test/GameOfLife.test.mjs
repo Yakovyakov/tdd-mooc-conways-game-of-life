@@ -1,4 +1,4 @@
-import { describe, test } from "vitest";
+import { beforeEach, describe, test } from "vitest";
 import { Grid } from "../src/Grid.mjs";
 import { setLiveCellsToGrid, testGrid } from "./util.mjs";
 import { expect } from "chai";
@@ -23,5 +23,30 @@ describe('GameOfLife class', () => {
     expect(gameOfLife.generations).to.equal(0);
 
     testGrid(gameOfLife.grid, cellsLive);
+  });
+
+  describe('block basic pattern', () => {
+    let gameOfLife;
+
+    const blockCells = [
+      {row: 0, col: 0},
+      {row: 0, col: 1},
+      {row: 1, col: 0},
+      {row: 1, col: 1},
+    ];
+
+    beforeEach(() => {
+      const initialGrid = new Grid(2, 2);
+
+      setLiveCellsToGrid(initialGrid, blockCells);
+
+      gameOfLife = new GameOfLife(initialGrid)
+    });
+
+    test('should compute next generation', () => {
+      gameOfLife.nextGeneration();
+      testGrid(gameOfLife.grid, blockCells);
+      expect(gameOfLife.generations).to.equal(1);
+    })
   });
 });
