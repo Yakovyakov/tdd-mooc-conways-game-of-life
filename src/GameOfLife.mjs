@@ -85,4 +85,23 @@ export class GameOfLife {
       right: expandRight
     }
   }
+
+  expandGrid(top, bottom, left, right) {
+    const oldWidth = this.grid.width();
+    const oldHeight = this.grid.height();
+
+    const newWidth = oldWidth + left + right;
+    const newHeight = oldHeight + top + bottom;
+
+    const newGrid = new Grid(newWidth, newHeight);
+
+    for (let row = 0; row < oldHeight; row++) {
+      for (let col = 0; col < oldWidth; col++) {
+        if (this.grid.cellAt(row, col).isAlive()) {
+          newGrid.setCellStateAt(row + top, col + left, CELL_STATES.ALIVE)
+        }
+      }
+    }
+    this.grid = newGrid;
+  }
 }
