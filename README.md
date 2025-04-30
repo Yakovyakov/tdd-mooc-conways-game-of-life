@@ -21,3 +21,9 @@ Run tests continuously
 Code reformat
 
     npm run format
+    
+# TDD: Conway's game of life project
+
+Usage
+    node src/index.mjs <inputRleFile> <generations>
+    
