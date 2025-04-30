@@ -28,4 +28,6 @@ Usage
 
     node src/index.mjs <inputRleFile> <generations>
 
-    
+## screencast
+
+[🎬 Ver screencast](https://youtube.com/playlist?list=PLG33S2fyAtX93TO9LO8-qd2vKrOFv1pEX&si=rOCb-k-hb45rxIO-)
