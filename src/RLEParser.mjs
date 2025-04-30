@@ -23,6 +23,8 @@ export class RLEParser {
       throw new Error('Invalid header');
     }
 
+    this.width = parseInt(headerMatch[1]);
+    this.height = parseInt(headerMatch[2]);
     this.header = headerLine;
     this.pattern = lines.slice(lines.indexOf(headerLine) + 1).join('');
 
