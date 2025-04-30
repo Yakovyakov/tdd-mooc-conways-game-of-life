@@ -9,6 +9,11 @@ export class GameOfLife {
 
   nextGeneration() {
 
+    const {shouldExpand, top, bottom, left, right} = this.detectBoundaryExpansionNeeded();
+
+    if (shouldExpand) {
+      this.expandGrid(top, bottom, left, right);
+    }
     const nextGrid = new Grid(this.grid.width(), this.grid.height());
     this.generations++;
     for (let row = 0; row < this.grid.height(); row++) {
