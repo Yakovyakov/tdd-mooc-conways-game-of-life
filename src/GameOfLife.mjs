@@ -20,7 +20,7 @@ export class GameOfLife {
     const numberOfLiveNeighbors = this.grid.countLiveNeighbors(row, col);
 
     if (cell.isAlive()) {
-      return numberOfLiveNeighbors < 2 ? false : true;
+      return numberOfLiveNeighbors === 2 || numberOfLiveNeighbors === 3 ? true : false;
     }
 
     // for now
