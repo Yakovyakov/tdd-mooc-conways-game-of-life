@@ -288,6 +288,78 @@ describe('GameOfLife class', () => {
   
       });
 
+      test('should predict if must expand on all possible directioins', () => {
+        const initialGrid = new Grid(3, 3);
+
+        const testSides = [
+          {
+            liveCells: [
+              {row: 0, col: 0},
+              {row: 0, col: 1},
+              {row: 0, col: 2},
+            ],
+            description: 'topSide',
+          },
+          {
+            liveCells: [
+              {row: 2, col: 0},
+              {row: 2, col: 1},
+              {row: 2, col: 2},
+            ],
+            description: 'bottomSide',
+          },
+          {
+            liveCells: [
+              {row: 0, col: 0},
+              {row: 1, col: 0},
+              {row: 2, col: 0},
+            ],
+            description: 'leftSide',
+          },
+          {
+            liveCells: [
+              {row: 0, col: 2},
+              {row: 1, col: 2},
+              {row: 2, col: 2},
+            ],
+            description: 'rightSide',
+          },
+        ];
+
+        for (const n of [1, 2, 3, 4]) {
+          setAllCellsDead(initialGrid);
+          const randomSides = shuffleAndPickCopy(testSides, n);
+          for (let i = 0; i < n; i++) {
+            setLiveCellsToGrid(initialGrid, randomSides[i].liveCells);
+          }
+          const gameOfLife = new GameOfLife(initialGrid);
+          const {shouldExpand, top, bottom, left, right} = gameOfLife.detectBoundaryExpansionNeeded();
+          expect(shouldExpand).to.be.true;
+          let expectTop = 0, expectBottom = 0, expectLeft = 0, expectRight = 0;
+
+          const existTopSide = randomSides.some(side => side.description === 'topSide')
+          if (existTopSide)
+            expectTop = 1;
+          const existBottomSide = randomSides.some(side => side.description === 'bottomSide')
+          if (existBottomSide)
+            expectBottom = 1;
+          const existLeftSide = randomSides.some(side => side.description === 'leftSide')
+          if (existLeftSide)
+            expectLeft = 1;
+          const existRightSide = randomSides.some(side => side.description === 'rightSide')
+          if (existRightSide)
+            expectRight = 1;
+
+          expect(top).to.equal(expectTop);
+          expect(bottom).to.equal(expectBottom);
+          expect(left).to.equal(expectLeft);
+          expect(right).to.equal(expectRight);
+          
+          
+        }
+
+      });
+
     });
   });
 
