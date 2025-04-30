@@ -361,6 +361,65 @@ describe('GameOfLife class', () => {
       });
 
     });
+
+    describe('expand grid', () => {
+      test('should expand on all posible directions', () => {
+        const width = 3;
+        const height = 3;
+
+        const initialGrid = new Grid(width, height);
+        const testCell = {row: 1, col: 1};
+        
+        initialGrid.setCellStateAt(testCell.row, testCell.col, CELL_STATES.ALIVE);
+
+        const testSide = [
+          {
+            description: 'topSide'
+          },
+          {
+            description: 'bottomSide'
+          },
+          {
+            description: 'leftSide'
+          },
+          {
+            description: 'rightSide'
+          },
+        ];
+
+        for (const n of [1, 2, 3, 4]) {
+          const randomSides = shuffleAndPickCopy(testSide, n);
+
+          const gameOfLife = new GameOfLife(initialGrid);
+
+          let top = 0, bottom = 0, left = 0, right = 0;
+
+          const existTopSide = randomSides.some(side => side.description === 'topSide')
+          if (existTopSide)
+            top = 1;
+          const existBottomSide = randomSides.some(side => side.description === 'bottomSide')
+          if (existBottomSide)
+            bottom = 1;
+          const existLeftSide = randomSides.some(side => side.description === 'leftSide')
+          if (existLeftSide)
+            left = 1;
+          const existRightSide = randomSides.some(side => side.description === 'rightSide')
+          if (existRightSide)
+            right = 1;
+          console.log({top, bottom, left, right})
+          gameOfLife.expandGrid(top, bottom, left, right);
+          const expectedLiveCells = [
+            {row: 1 + top, col: 1 + left}
+          ]
+
+          expect(gameOfLife.grid.width()).to.equal(initialGrid.width() + left + right);
+          expect(gameOfLife.grid.height()).to.equal(initialGrid.height() + top + bottom);
+          testGrid(gameOfLife.grid, expectedLiveCells);
+
+        }
+      });
+
+    });
   });
 
 });
