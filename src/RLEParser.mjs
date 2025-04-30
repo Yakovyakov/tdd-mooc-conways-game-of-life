@@ -35,7 +35,7 @@ export class RLEParser {
   parseToGrid() {
     const grid = new Grid(this.width, this.height);
 
-    const patternMatch = this.pattern.match(/([bo$!]+)/i);
+    const patternMatch = this.pattern.match(/([bo\d$!]+)/i);
 
     if (!patternMatch) {
       return grid;
@@ -45,27 +45,37 @@ export class RLEParser {
     let row = 0;
     let col = 0;
 
+    let countBuffer = '';
+
     for (const char of pattern) {
       if (char === '!') {
         break;
       }
 
       if (char === '$') {
-        row++;
+        const count = countBuffer ? parseInt(countBuffer) : 1;
+        row += count;
         col = 0;
+        countBuffer = '';
         continue;
       }
 
       if (/[bo]/.test(char)) {
+        const count = countBuffer ? parseInt(countBuffer) : 1;
 
         const state = char === 'b' ? CELL_STATES.DEAD : CELL_STATES.ALIVE;
 
-        if (row < this.height && col < this.width) {
-          grid.setCellStateAt(row, col, state);
-        }
-        col++;
-      }
+        for (let i = 0; i < count; i++) {
 
+          if (row < this.height && col < this.width) {
+            grid.setCellStateAt(row, col, state);
+          }
+          col++;
+        }
+        countBuffer = '';
+      } else if (/\d/.test(char)) {
+        countBuffer += char;
+      }
     }
     return grid;
   }
