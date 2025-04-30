@@ -1,7 +1,16 @@
-
+import fs from 'fs';
+import { RLEParser } from './RLEParser.mjs';
+import { GameOfLife } from './GameOfLife.mjs';
 export function runGameOfLife(inputFile, generations) {
   try {
-    return `${inputFile} ${generations}`;
+    const rleString = fs.readFileSync(inputFile, 'utf-8');
+    const parser = new RLEParser(rleString);
+    const initialGrid = parser.parseToGrid();
+
+    const gameOfLife = new GameOfLife(initialGrid);
+    gameOfLife.simulate(generations);
+    const result = RLEParser.gridToRLE(gameOfLife.grid);
+    return result;
   } catch (error) {
     console.error('Error: ', error.message);
   }
