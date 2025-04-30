@@ -248,6 +248,46 @@ describe('GameOfLife class', () => {
         expect(right).to.equal(0);
   
       });
+
+      test('should predict if grid must to expand on left', () => {
+        const initialGrid = new Grid(3, 3);
+        const initialLiveCells = [
+          {row: 0, col: 0},
+          {row: 1, col: 0},
+          {row: 2, col: 0},
+        ];
+  
+        setLiveCellsToGrid(initialGrid, initialLiveCells);
+        const gameOfLife = new GameOfLife(initialGrid);
+
+        const {shouldExpand, top, bottom, left, right} = gameOfLife.detectBoundaryExpansionNeeded();
+        expect(shouldExpand).to.be.true;
+        expect(top).to.equal(0);
+        expect(bottom).to.equal(0);
+        expect(left).to.equal(1);
+        expect(right).to.equal(0);
+  
+      });
+      test('should predict if grid must to expand on right', () => {
+        const initialGrid = new Grid(3, 3);
+        const initialLiveCells = [
+          {row: 0, col: 2},
+          {row: 1, col: 2},
+          {row: 2, col: 2},
+        ];
+  
+        setLiveCellsToGrid(initialGrid, initialLiveCells);
+        const gameOfLife = new GameOfLife(initialGrid);
+
+        const {shouldExpand, top, bottom, left, right} = gameOfLife.detectBoundaryExpansionNeeded();
+        expect(shouldExpand).to.be.true;
+        expect(top).to.equal(0);
+        expect(bottom).to.equal(0);
+        expect(left).to.equal(0);
+        expect(right).to.equal(1);
+  
+      });
+
     });
   });
 
