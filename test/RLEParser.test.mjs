@@ -133,8 +133,26 @@ describe('RLEParser', () => {
       const rle = RLEParser.gridToRLE(grid);
 
       expect(rle).to.equal('x = 2, y = 2\nbo$bo!');
-    
+    });
 
+    test('repeat tags (b, o)', () => {
+      const grid = new Grid(3,2);
+
+      // test pattern
+      //  b b o
+      //  b o o
+
+      const initialLiveCells = [
+        {row: 0, col: 2},
+        {row: 1, col: 1},
+        {row: 1, col: 2},
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 2\n2bo$b2o!');
     });
 
   });
