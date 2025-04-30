@@ -177,6 +177,26 @@ describe('RLEParser', () => {
       expect(rle).to.equal('x = 3, y = 3\nbo$o$2o!');
     });
 
+    test('repeat tag $', () => {
+      const grid = new Grid(3,3);
+
+      // test pattern
+      //  b o b 
+      //  b b b
+      //  b b o
+
+      const initialLiveCells = [
+        {row: 0, col: 1},
+        {row: 2, col: 2},
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 3\nbo2$2bo!');
+    });
+
   });
 });
 
