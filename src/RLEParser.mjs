@@ -106,7 +106,9 @@ export class RLEParser {
       }
 
       if (currentRun > 0) {
-        rle += (currentRun > 1 ? currentRun : '') + currentState;
+        if (currentState !== 'b') {
+          rle += (currentRun > 1 ? currentRun : '') + currentState;
+        }
         currentRun = 0;
         currentState = null;
       }
