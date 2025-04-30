@@ -39,5 +39,13 @@ describe('e2e', () => {
     });
 
   });
+
+  describe('simulate Glider pattern', () => {
+    test('glider pattern', () => {
+      const result  = runGameOfLife('./testdata/glider.rle', 4);
+      expect(result).to.equal('x = 4, y = 4\n$2bo$3bo$b3o!');
+
+    });
+  });
   
 });
