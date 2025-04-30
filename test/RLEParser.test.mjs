@@ -1,7 +1,8 @@
 import { expect } from "chai";
 import { describe, test } from "vitest";
 import { RLEParser } from "../src/RLEParser.mjs";
-import { testGrid } from "./util.mjs";
+import { setLiveCellsToGrid, testGrid } from "./util.mjs";
+import { Grid } from "../src/Grid.mjs";
 
 describe('RLEParser', () => {
   describe('RLE to Grid', () => {
@@ -113,6 +114,31 @@ describe('RLEParser', () => {
     });
 
   });
+
+  describe('Grid to LRE', () => {
+    test('non repeat tags', () => {
+      const grid = new Grid(2,2);
+
+      // test pattern
+      //  b o
+      //  b o
+
+      const initialLiveCells = [
+        {row: 0, col: 1},
+        {row: 1, col: 1},
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 2, y = 2\nbo$bo!');
+    
+
+    });
+
+  });
 });
+
 
 
