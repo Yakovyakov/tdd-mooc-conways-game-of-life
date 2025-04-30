@@ -256,6 +256,36 @@ describe('RLEParser', () => {
 
       expect(rle).to.equal('x = 3, y = 3\n3o!');
     });
+
+    test('all live cells in a world', () => {
+      const grid = new Grid(3,3);
+
+      // test pattern
+      //  o o o 
+      //  o o o
+      //  o o o
+
+      const initialLiveCells = [
+        {row: 0, col: 0},
+        {row: 0, col: 1},
+        {row: 0, col: 2},
+        {row: 1, col: 0},
+        {row: 1, col: 1},
+        {row: 1, col: 2},
+        {row: 2, col: 0},
+        {row: 2, col: 1},
+        {row: 2, col: 2},
+        
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 3\n3o$3o$3o!');
+    });
+
+
   });
 });
 
