@@ -14,4 +14,16 @@ export class GameOfLife {
       this.nextGeneration();
     }
   }
+
+  willLive(row, col) {
+    const cell = this.grid.cellAt(row, col);
+    const numberOfLiveNeighbors = this.grid.countLiveNeighbors(row, col);
+
+    if (cell.isAlive()) {
+      return numberOfLiveNeighbors < 2 ? false : true;
+    }
+
+    // for now
+    return undefined
+  }
 }
