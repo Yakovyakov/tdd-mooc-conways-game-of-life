@@ -8,4 +8,10 @@ export class GameOfLife {
   nextGeneration() {
     this.generations++;
   }
+
+  simulate(generations) {
+    for (let i =0; i < generations; i++) {
+      this.nextGeneration();
+    }
+  }
 }
