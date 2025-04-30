@@ -83,13 +83,32 @@ export class RLEParser {
   static gridToRLE(grid) {
     let rle = `x = ${grid.width()}, y = ${grid.height()}\n`;
 
+    let currentState = null;
+    let currentRun = 0;
+
 
     for (let row = 0; row < grid.height(); row++) {
       for (let col = 0; col < grid.width(); col++) {
         const cell = grid.cellAt(row, col);
         const state = cell.isAlive() ? 'o' : 'b';
 
-        rle += state;
+        if (state === currentState) {
+          currentRun++;
+        } else {
+          if (currentRun > 0) {
+            rle += (currentRun > 1 ? currentRun : '') + currentState;
+          }
+          currentState = state;
+          currentRun = 1;
+        }
+
+        
+      }
+
+      if (currentRun > 0) {
+        rle += (currentRun > 1 ? currentRun : '') + currentState;
+        currentRun = 0;
+        currentState = null;
       }
 
       if (row < grid.height() - 1) {
