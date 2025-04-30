@@ -36,6 +36,29 @@ export class Grid {
   setCellStateAt(row, col, newState) {
     this.cellAt(row, col).setState(newState);
   }
+
+  countLiveNeighbors(row, col) {
+    let count = 0;
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        if (dx === 0 && dy === 0) {
+          // same cell
+          continue;
+        }
+        const nx = col + dx;
+        const ny = row + dy;
+
+        if (!this.#isOutOfBound(ny, nx)) {
+          if (this.cellAt(ny, nx).isAlive()) {
+            count++;
+          }
+        }
+      }
+    }
+    
+    return count;
+  }
   
   #isOutOfBound(row, col) {
     return row < 0 ||
