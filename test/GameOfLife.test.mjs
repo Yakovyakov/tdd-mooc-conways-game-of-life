@@ -420,6 +420,38 @@ describe('GameOfLife class', () => {
       });
 
     });
+
+    test('should simulate and expand Grid if necesary', () => {
+      const height = 1;
+      const width = 3;
+
+      // blinker
+      const initialLiveCells = [
+        {row: 0, col: 0},
+        {row: 0, col: 1},
+        {row: 0, col: 2},
+        
+      ];
+
+      const liveCellsNonRounds = [
+        {row: 0, col: 1},
+        {row: 1, col: 1},
+        {row: 2, col: 1},
+      ];
+
+      const initialGrid = new Grid(width, height);
+      setLiveCellsToGrid(initialGrid, initialLiveCells);
+
+      const gameOfLife = new GameOfLife(initialGrid);
+
+      gameOfLife.simulate(3);
+
+      expect(gameOfLife.generations).to.equal(3);
+      expect(gameOfLife.grid.width()).to.equal(3);
+      expect(gameOfLife.grid.height()).to.equal(3);
+      testGrid(gameOfLife.grid, liveCellsNonRounds);
+
+    });
   });
 
 });
