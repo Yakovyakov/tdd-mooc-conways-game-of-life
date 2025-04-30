@@ -1,8 +1,8 @@
 import { describe, test } from "vitest";
 import { Grid } from "../src/Grid.mjs";
 import { setLiveCellsToGrid, testGrid } from "./util.mjs";
-import { initial } from "lodash";
 import { expect } from "chai";
+import { GameOfLife } from "../src/GameOfLife.mjs";
 
 describe('GameOfLife class', () => {
   test('should be initialize with an initial Grid correctly', () => {
