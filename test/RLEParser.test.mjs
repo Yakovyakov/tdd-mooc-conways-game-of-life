@@ -234,6 +234,28 @@ describe('RLEParser', () => {
 
       expect(rle).to.equal('x = 3, y = 3\n!');
     });
+
+    test('all live cell in a row!', () => {
+      const grid = new Grid(3,3);
+
+      // test pattern
+      //  o o o 
+      //  b b b
+      //  b b b
+
+      const initialLiveCells = [
+        {row: 0, col: 0},
+        {row: 0, col: 1},
+        {row: 0, col: 2},
+        
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 3\n3o!');
+    });
   });
 });
 
