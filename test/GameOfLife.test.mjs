@@ -1,8 +1,9 @@
 import { beforeEach, describe, test } from "vitest";
 import { Grid } from "../src/Grid.mjs";
-import { setLiveCellsToGrid, testGrid } from "./util.mjs";
+import { setLiveCellsToGrid, shuffleAndPickCopy, testGrid } from "./util.mjs";
 import { expect } from "chai";
 import { GameOfLife } from "../src/GameOfLife.mjs";
+import { CELL_STATES } from "../src/Cell.mjs";
 
 describe('GameOfLife class', () => {
   test('should be initialize with an initial Grid correctly', () => {
@@ -53,6 +54,45 @@ describe('GameOfLife class', () => {
       gameOfLife.simulate(3);
       testGrid(gameOfLife.grid, blockCells);
       expect(gameOfLife.generations).to.equal(3);
+    });
+
+  });
+
+  describe('game rules set', () => {
+    let grid;
+    let gameOfLife;
+
+    const testNeighbors = [
+      {row: 0, col: 0},
+      {row: 0, col: 1},
+      {row: 0, col: 2},
+      {row: 1, col: 0},
+      {row: 1, col: 2},
+      {row: 2, col: 0},
+      {row: 2, col: 1},
+      {row: 2, col: 2},
+    ];
+
+    const testCell = {row: 1, col: 1};
+
+    beforeEach(() => {
+      grid = new Grid(3, 3);
+      gameOfLife = new GameOfLife(grid);
+
+    });
+
+    test('live cell with 2 < neighbors, dies', () => {
+
+      gameOfLife.grid.setCellStateAt(testCell.row, testCell.col, CELL_STATES.ALIVE);
+
+      expect(gameOfLife.willLive(testCell.row, testCell.col), 'no live neighbors, dies').to.be.false;
+
+      const randomNeighbors = shuffleAndPickCopy(testNeighbors, 1);
+
+      setLiveCellsToGrid(gameOfLife.grid, randomNeighbors);
+      expect(gameOfLife.willLive(testCell.row, testCell.col), '1 live neighbors, dies').to.be.false;
+
+
     });
 
   });
