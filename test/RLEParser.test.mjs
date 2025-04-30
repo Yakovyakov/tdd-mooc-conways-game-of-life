@@ -72,5 +72,28 @@ describe('RLEParser', () => {
       expect(rleParser.header).to.equal('x = 3, y = 2');
       expect(rleParser.pattern).to.equal('bo$2bo!');
     });
+
+    test('should parse RLE pattern, non repeat tags', () => {
+      const rleString = 'x = 2, y = 2\nbo$!';
+
+      const rleParser = new RLEParser(rleString);
+
+      const grid = rleParser.parseToGrid();
+
+      const initialLiveCells = [
+        {row: 0, col: 1}
+      ];
+
+      for (let row = 0; row < grid.height(); row++) {
+        for (let col = 0; col < grid.width(); col++) {
+          const cellExistInArray = initialLiveCells.some(cell => cell.row === row && cell.col === col);
+          if (cellExistInArray) {
+            expect(grid.cellAt(row, col).isAlive()).to.be.true;
+          } else {
+            expect(grid.cellAt(row, col).isAlive()).to.be.false;
+          }
+        }
+      }
+    });
   });
 });
