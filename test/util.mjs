@@ -26,3 +26,22 @@ export function setLiveCellsToGrid(grid, liveCells) {
   }
 }
 
+export function setAllCellsDead(grid) {
+  for (let row = 0; row < grid.height(); row++) {
+    for (let col = 0; col < grid.width(); col++) {
+      grid.setCellStateAt(row, col, CELL_STATES.DEAD);
+    }
+  }
+}
+
+export function shuffleAndPickCopy(array, n = 1) {
+  const shuffled = [...array];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled.slice(0, n);
+
+}

@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { beforeEach, describe, test } from "vitest";
 import { Grid } from "../src/Grid.mjs";
 import { CELL_STATES } from "../src/Cell.mjs";
+import { setAllCellsDead, setLiveCellsToGrid, shuffleAndPickCopy, testGrid } from "./util.mjs";
 
 describe('Grid class', () => {
   const width = 3;
@@ -49,6 +50,33 @@ describe('Grid class', () => {
 
     grid.setCellStateAt(1, 1, CELL_STATES.DEAD)
     expect(grid.cellAt(1, 1).isAlive()).to.be.false;
+
+  });
+
+  test('should get the number of living neighbors', () => {
+    const testNeighbors = [
+      {row: 0, col: 0},
+      {row: 0, col: 1},
+      {row: 0, col: 2},
+      {row: 1, col: 0},
+      {row: 1, col: 2},
+      {row: 2, col: 0},
+      {row: 2, col: 1},
+      {row: 2, col: 2},
+    ];
+
+    const testCell = {row: 1, col: 1};
+
+    for (let i = 1; i <= 8; i++) {
+      setAllCellsDead(grid);
+      const randomNeighbors = shuffleAndPickCopy(testNeighbors, i);
+      setLiveCellsToGrid(grid, randomNeighbors);
+      expect(grid.countLiveNeighbors(testCell.row, testCell.col),
+        `${i} neighbors`
+      ).to.equal(i);
+
+    }
+
 
   });
 });
