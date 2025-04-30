@@ -197,6 +197,24 @@ describe('RLEParser', () => {
       expect(rle).to.equal('x = 3, y = 3\nbo2$2bo!');
     });
 
+    test('all cells dead until the end of pattern should be ignore', () => {
+      const grid = new Grid(3,3);
+
+      // test pattern
+      //  b o b 
+      //  b b b
+      //  b b b
+
+      const initialLiveCells = [
+        {row: 0, col: 1},
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 3\nbo!');
+    });
   });
 });
 
