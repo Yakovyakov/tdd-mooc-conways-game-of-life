@@ -155,6 +155,28 @@ describe('RLEParser', () => {
       expect(rle).to.equal('x = 3, y = 2\n2bo$b2o!');
     });
 
+    test('ignore dead cells at end of lines', () => {
+      const grid = new Grid(3,3);
+
+      // test pattern
+      //  b o b 
+      //  o b b
+      //  o o b
+
+      const initialLiveCells = [
+        {row: 0, col: 1},
+        {row: 1, col: 0},
+        {row: 2, col: 0},
+        {row: 2, col: 1},
+      ];
+
+      setLiveCellsToGrid(grid, initialLiveCells);
+
+      const rle = RLEParser.gridToRLE(grid);
+
+      expect(rle).to.equal('x = 3, y = 3\nbo$o$2o!');
+    });
+
   });
 });
 
