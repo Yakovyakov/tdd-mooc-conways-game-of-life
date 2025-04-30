@@ -1,3 +1,5 @@
+import { CELL_STATES } from "./Cell.mjs";
+import { Grid } from "./Grid.mjs";
 
 export class GameOfLife {
   constructor(initialGrid) {
@@ -6,7 +8,17 @@ export class GameOfLife {
   }
 
   nextGeneration() {
+
+    const nextGrid = new Grid(this.grid.width(), this.grid.height());
     this.generations++;
+    for (let row = 0; row < this.grid.height(); row++) {
+      for (let col = 0; col < this.grid.width(); col++) {
+        if (this.willLive(row,col)) {
+          nextGrid.setCellStateAt(row, col, CELL_STATES.ALIVE);
+        }
+      }
+    }
+    this.grid = nextGrid;
   }
 
   simulate(generations) {
